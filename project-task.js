@@ -12,7 +12,7 @@ They will:
 - Gain experience using `map`, `filter`, and `reduce` to perform practical data transformations
 */
 
-// ============================================
+// ==========================================
 // 📦 Starting Dataset: Product List
 // ============================================
 
@@ -43,7 +43,15 @@ Step-by-Step:
 2. Use the `filter()` method to apply the callback to the array.
 3. Return the filtered result.
 */
+ function filterProducts(callback) {
+  return products.filter(callback);
+};
 
+let inStockProducts = filterProducts((product) => product.inStock);
+let outOfStockProducts = filterProducts((product) => !product.inStock);
+
+console.log("In Stock:", inStockProducts);
+console.log("Out of Stock:", outOfStockProducts);
 
 /*
 🔹 Task 2: Transform Product Names
@@ -55,7 +63,8 @@ Step-by-Step:
 2. Extract and transform the `name` property to uppercase.
 3. Store the result in a new variable.
 */
-
+let upperCasedProducts= products.map((products)=> products.name.toUpperCase())
+console.log(upperCasedProducts)
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -70,6 +79,16 @@ Step-by-Step:
 3. Use this returned function inside a `forEach()` call to add a new property, `salePrice`, to each product object.
 4. Print the array of products to verify the new property and value have been added to each product object.
 */
+function applyDiscount(discountPercent) {
+  return (product) => {
+    product.salesPrice = product.price -(product.price * discountPercent);
+  };
+};
+
+products.forEach(applyDiscount(0.20));
+console.log(products)
+
+
 
 
 /*
@@ -82,13 +101,19 @@ Step-by-Step:
 2. Add only the prices of products where `inStock` is true.
 3. Store the total in a new variable.
 */
+let totalValueInStock = products
+  .filter(product => product.inStock)
+  .reduce((total, product) => total + product.price, 0);
+
+console.log("Total Inventory Value:", totalValueInStock);
+
 
 
 // ============================================
 // 🧪 Console Test Your Work
 // ============================================
 
-// console.log("Filtered products:", ...);
-// console.log("Uppercased names:", ...);
-// console.log("Discounted products:", ...);
-// console.log("Total value in stock:", ...);
+console.log("Filtered products:", inStockProducts,);
+console.log("Uppercased names:", upperCasedProducts);
+console.log("Discounted products:", products);
+console.log("Total value in stock:",totalValueInStock);
